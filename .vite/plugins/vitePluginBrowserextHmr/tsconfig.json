@@ -1,0 +1,26 @@
+{
+  "include": ["./lib/*", "./index.ts"],
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "useUnknownInCatchVariables": false,
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "paths": {
+      "web-ext-run": ["./lib/web-ext-run.d.ts"]
+    }
+  },
+  "types": ["chrome", "jest"]
+}
+  

@@ -1,0 +1,49 @@
+{
+    "manifest_version": 3,
+    "name": "chrome-extensions-demo",
+    "version": "1.0.0",
+    "description": "Chrome 插件",
+    "icons": {
+        "16": "browserPlugin/icons/icon_16x16.png",
+        "48": "browserPlugin/icons/icon_48x48.png",
+        "128": "browserPlugin/icons/icon_128x128.png"
+    },
+    "devtools_page": "browserPlugin/devtools/index.html",
+    "action": {
+        "default_title": "Chrome 插件",
+        "default_icon": "browserPlugin/icons/icon_16x16.png",
+        "default_popup": "browserPlugin/popup/index.html"
+    },
+    "options_page": "browserPlugin/options/index.html",
+    "permissions": [],
+    "host_permissions": [
+        "*://*/*"
+    ],
+    "background": {
+        "service_worker": "browserPlugin/background/service-worker.js"
+    },
+    "content_scripts": [
+        {
+            "js": [
+                "browserPlugin/content/content.js"
+            ],
+            "matches": [
+                "*://*/*"
+            ],
+            "all_frames": true,
+            "run_at": "document_end",
+            "match_about_blank": true
+        },
+        {
+            "js": [
+                "browserPlugin/content/content-ass.js"
+            ],
+            "matches": [
+                "*://*/*"
+            ],
+            "all_frames": true,
+            "run_at": "document_end",
+            "match_about_blank": true
+        }
+    ]
+}

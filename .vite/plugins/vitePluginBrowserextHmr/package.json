@@ -1,0 +1,53 @@
+{
+    "name": "vite-plugin-browserext-hmr",
+    "version": "1.0.0",
+    "description": "支持开发浏览器扩展时热加载的vite插件",
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "type": "module",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "keywords": [
+        "vite",
+        "chrome",
+        "web",
+        "extension",
+        "browser",
+        "bundler",
+        "framework"
+    ],
+    "author": "",
+    "license": "ISC",
+    "scripts": {
+        "dev": "pnpm run clean && rollup -c -w",
+        "build": "pnpm run clean && rollup -c",
+        "clean": "rimraf ./dist"
+    },
+    "dependencies": {
+        "@types/chrome": "^0.0.332",
+        "@types/fs-extra": "^11.0.4",
+        "@types/node": "^24.0.15",
+        "@webext-core/match-patterns": "^1.0.3",
+        "colorette": "^2.0.20",
+        "esbuild": "^0.25.6",
+        "fs-extra": "^11.3.0",
+        "linkedom": "^0.18.11",
+        "vite": "^7.0.6",
+        "web-ext-run": "^0.2.3"
+    },
+    "devDependencies": {
+        "@rollup/plugin-commonjs": "^28.0.6",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-node-resolve": "^16.0.1",
+        "rimraf": "^6.0.1",
+        "rollup": "^4.45.1",
+        "rollup-plugin-copy": "^3.5.0",
+        "rollup-plugin-node-externals": "^8.0.1",
+        "rollup-plugin-typescript2": "^0.36.0",
+        "tslib": "^2.8.1",
+        "typescript": "~5.8.3"
+    }
+}
