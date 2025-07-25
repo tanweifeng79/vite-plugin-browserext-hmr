@@ -1,6 +1,6 @@
 <template>
   <div>
-    312312111333
+    121111111111155555555555555555
     <h1 class="text-red-500 border border-red-500 border-solid border-2">1111</h1>
   </div>
 </template>
@@ -9,6 +9,6 @@
 
 <style scoped>
 h1 {
-  color: red;
+  color: #00f;
 }
 </style>

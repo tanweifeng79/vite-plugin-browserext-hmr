@@ -8,8 +8,6 @@ import { stripVTControlCharacters } from "node:util";
 import { normalizePath } from "vite";
 import type { BinaryLike } from "node:crypto";
 
-const __dirname = dirname(fileURLToPath(import.meta.url)); // 获取当前目录[5](@ref)
-
 const ROLLUP_HOOKS = [
   "options",
   "buildStart",
@@ -224,13 +222,19 @@ const generateHotReloadCode = async (path: string | boolean) => {
           );
 
     let backgroundEntrypoint = readFileSync(
-      resolve(__dirname, "./background-entrypoint.js"),
+      resolve(
+        dirname(fileURLToPath(import.meta.url)),
+        "./background-entrypoint.js"
+      ),
       "utf-8"
     );
     let backgroundEntrypointClient =
       (!isItB &&
         readFileSync(
-          resolve(__dirname, "./background-entrypoint-client.js"),
+          resolve(
+            dirname(fileURLToPath(import.meta.url)),
+            "./background-entrypoint-client.js"
+          ),
           "utf-8"
         )) ||
       "";

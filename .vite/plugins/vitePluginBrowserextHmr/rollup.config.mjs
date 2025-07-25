@@ -5,6 +5,7 @@ import typescript from "rollup-plugin-typescript2"; // 支持TypeScript
 import json from "@rollup/plugin-json"; // 支持导入JSON文件
 import externals from "rollup-plugin-node-externals"; // 自动将Node内置模块和依赖标记为external
 import copy from "rollup-plugin-copy"; // 用于复制文件
+import dts from "rollup-plugin-dts"; // 用于生成声明文件
 
 import { resolve, dirname } from "node:path"; // Node.js路径相关API
 import { fileURLToPath } from "node:url"; // Node.js URL转路径
@@ -20,18 +21,11 @@ const externalsPlugin = externals({
   devDeps: false, // 不标记devDependencies为external
 });
 
+const typescriptPlugin = typescript({});
+
 // 共享的插件配置 - 只用于主构建（源码编译）
 const sharedPlugins = [
   pluginNodeResolve(), // 解析node_modules依赖
-  typescript({
-    // 使用项目中的tsconfig.json配置
-    useTsconfigDeclarationDir: false,
-    tsconfigOverride: {
-      compilerOptions: {
-        declaration: true, // 生成声明文件
-      },
-    },
-  }),
   commonjs(), // 支持CommonJS模块
   json(), // 支持JSON文件导入
   externalsPlugin,
@@ -53,9 +47,12 @@ const copyPlugin = copy({
       dest: "dist",
     },
     {
-      src: "./lib/web-ext-run.d.ts", // 添加 web-ext-run.d.ts 类型声明文件
-      dest: "dist/@types/web-ext-run", // 将类型文件放在标准的 @types 目录结构中
-      rename: "index.d.ts", // 重命名为 index.d.ts
+      src: "README.md",
+      dest: "dist",
+    },
+    {
+      src: "./lib/web-ext-run.d.ts", // 添加web-ext-run.d.ts类型声明文件
+      dest: "dist", // 直接复制到dist目录
     },
     {
       src: "package.json",
@@ -72,16 +69,11 @@ const copyPlugin = copy({
             module: "index.js", // ES 模块入口点
             exports: {
               // 更精确地控制导入行为
-              import: "index.js", // 使用 import 导入时的入口
-              require: "index.cjs", // 使用 require 导入时的入口
-              types: "index.d.ts", // 类型声明文件
+              import: "./index.js", // 使用 import 导入时的入口
+              require: "./index.cjs", // 使用 require 导入时的入口
+              types: "./index.d.ts", // 类型声明文件
             },
-            types: "index.d.ts",
-            typesVersions: {
-              "*": {
-                "web-ext-run": ["@types/web-ext-run/index.d.ts"],
-              },
-            },
+            types: "./index.d.ts",
             license: pkg.license,
             repository: pkg.repository,
             keywords: pkg.keywords,
@@ -106,7 +98,7 @@ export default [
       entryFileNames: "index.js",
       format: "es", // ES模块输出
     },
-    plugins: [...sharedPlugins, copyPlugin], // 使用共享插件和复制插件
+    plugins: [...sharedPlugins, copyPlugin, typescriptPlugin], // 使用共享插件和复制插件
   },
   // CommonJS模块输出
   {
@@ -116,6 +108,15 @@ export default [
       entryFileNames: "index.cjs",
       format: "cjs", // CommonJS模块输出
     },
-    plugins: [...sharedPlugins], // 使用共享插件，但不重复使用copyPlugin
+    plugins: [...sharedPlugins, typescriptPlugin], // 使用共享插件，但不重复使用copyPlugin
+  },
+  // 类型声明文件输出 - 使用rollup-plugin-dts
+  {
+    input: resolve(__dirname, "index.ts"),
+    output: {
+      file: "dist/index.d.ts",
+      format: "es",
+    },
+    plugins: [externalsPlugin, dts({})],
   },
 ];

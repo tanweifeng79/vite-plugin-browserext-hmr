@@ -2,11 +2,10 @@ import { existsSync, readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { normalizePath } from "vite";
 import { gray } from "colorette";
-// import { fileURLToPath } from "node:url";
+import { fileURLToPath } from "node:url";
 import { generateHotReloadCode } from "./viteUtils";
 import type { PlatformPath } from "node:path";
 
-// const __dirname = dirname(fileURLToPath(import.meta.url)); // 获取当前目录[5](@ref)
 type resolveType = PlatformPath["resolve"] extends (...args: any[]) => infer R
   ? R
   : string;
@@ -135,7 +134,10 @@ export function manifestJsonProcessPlugin({
             type: "asset",
             fileName: "webcomponents-bundle.js",
             source: readFileSync(
-              resolve(__dirname, "./webcomponents-bundle.js"),
+              resolve(
+                dirname(fileURLToPath(import.meta.url)),
+                "./webcomponents-bundle.js"
+              ),
               "utf-8"
             ),
           });

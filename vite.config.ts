@@ -6,10 +6,9 @@ import path from "path";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
-import { vitePluginBrowserextHmr } from "./.vite/plugins/vitePluginBrowserextHmr/dist";
-// import { vitePluginBrowserextHmr } from "vite-plugin-browserext-hmr";
+// import { vitePluginBrowserextHmr } from "./.vite/plugins/vitePluginBrowserextHmr/dist";
+import { vitePluginBrowserextHmr } from "vite-plugin-browserext-hmr";
 import UnoCSS from "unocss/vite";
-import type { Plugin } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -92,7 +91,7 @@ export default defineConfig({
           edge: "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", // 在运行"wxt -b edge"时打开微软Edge
         },
       },
-    }) as Plugin,
+    }),
   ],
   // build: {
   //   sourcemap: false,
