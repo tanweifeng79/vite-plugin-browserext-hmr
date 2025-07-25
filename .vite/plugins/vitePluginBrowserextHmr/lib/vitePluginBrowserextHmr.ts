@@ -257,17 +257,17 @@ export function vitePluginBrowserextHmr({
       } as any);
       const builder: any = await build({
         ...inlineConfig,
-        build: { write: false },
+        build: { write: true },
       });
-      const fileArray: any[] = [];
-      builder?.output?.forEach?.((outputItem: any) => {
-        const { fileName, type, code, source } = outputItem;
-        fileArray.push({
-          fileName,
-          code: type === "chunk" ? code : source,
-        });
-      });
-      await outputFile(fileArray);
+      // const fileArray: any[] = [];
+      // builder?.output?.forEach?.((outputItem: any) => {
+      //   const { fileName, type, code, source } = outputItem;
+      //   fileArray.push({
+      //     fileName,
+      //     code: type === "chunk" ? code : source,
+      //   });
+      // });
+      // await outputFile(fileArray);
 
       global.__builder = builder;
       await buildJs();

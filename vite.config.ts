@@ -8,6 +8,7 @@ import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 // import { vitePluginBrowserextHmr } from "./.vite/plugins/vitePluginBrowserextHmr/dist";
 import { vitePluginBrowserextHmr } from "vite-plugin-browserext-hmr";
+// import { vitePluginBrowserextHmr } from "./.vite/plugins/vitePluginBrowserextHmr/index";
 import UnoCSS from "unocss/vite";
 
 // https://vite.dev/config/
