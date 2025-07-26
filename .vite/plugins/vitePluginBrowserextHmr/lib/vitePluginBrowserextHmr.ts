@@ -492,7 +492,7 @@ export function vitePluginBrowserextHmr({
     },
     configResolved(resolvedConfig) {
       // 重置webSocketToken为固定的值
-      (resolvedConfig as any).webSocketToken = "buildCrxNotifierPlugins";
+      (resolvedConfig as any).webSocketToken = "vitePluginBrowserextHmr";
       global.__config = resolvedConfig;
     },
     resolveId(id) {

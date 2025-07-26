@@ -20,7 +20,7 @@ const filterItem = (i: { name: string }) =>
 
 function createBuilderWatch(jsItem: { path: PathLike; name: string }): Plugin {
   return {
-    name: "buildCrxNotifierPlugins:createBuilderWatch",
+    name: "vitePluginBrowserextHmr:createBuilderWatch",
     enforce: "post",
     config(config: any) {
       if (!config.plugins) config.plugins = [];
