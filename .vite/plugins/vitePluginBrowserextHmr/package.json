@@ -1,6 +1,6 @@
 {
     "name": "vite-plugin-browserext-hmr",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "支持开发浏览器扩展时热加载的vite插件",
     "repository": {
         "type": "git",
